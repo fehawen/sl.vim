@@ -1,8 +1,8 @@
 # sl.vim
 
-:newspaper: fehawen's simple vim statusline.
+fehawen's squidly simple :squid: vim statusline.
 
-## Installation
+Plays well with a [terminal colors](https://github.com/fehawen/cs.vim) colorscheme.
 
 ```vim
 " Install using plug
