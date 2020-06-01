@@ -1,141 +1,103 @@
-" Syntax highlight group: " {{{
-" -------------------------------------------------------------------------
-
-function! SyntaxItem()
-    let l:syntaxname = synIDattr(synID(line("."),col("."),1),"name")
+" Syntax highlight group
+function! SyntaxItem() abort
+    let l:syntaxname = synIDattr(synID(line("."), col("."), 1), "name")
 
     if l:syntaxname != ""
-        return l:syntaxname
+        return printf(" %s ", l:syntaxname)
     else
         return ""
     endif
 endfunction
 
-" }}}
-
-" Ale linter status: " {{{
-" -------------------------------------------------------------------------
-
+" Ale linter status
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
 
     if l:counts.total == 0
         return ""
     else
-        return printf("(%d err)", l:counts.total)
+        return printf(" (%d err) ", l:counts.total)
     endif
 endfunction
 
-" }}}
-
-" Readonly flag check: " {{{
-" -------------------------------------------------------------------------
-
-function! ReadOnly()
+" Readonly flag check
+function! ReadOnly() abort
     if &readonly || !&modifiable
-        return 'readonly'
+        return " [RO] "
     else
-        return ''
+        return ""
     endif
 endfunction
 
-" }}}
-
-" Line percentage: " {{{
-" -------------------------------------------------------------------------
-
-function! LinePercent()
-    return printf("%d%%", line('.') * 100 / line('$'))
+" Line percentage
+function! LinePercent() abort
+    return printf(" %d%% ", line('.') * 100 / line('$'))
 endfunction
 
-" }}}
-
-" Modified flag check: " {{{
-" -------------------------------------------------------------------------
-
-function! Modified()
+" Modified flag check
+function! Modified() abort
     if &modified
-        return 'modified'
+        return " [+] "
     else
-        return ''
+        return ""
     endif
 endfunction
 
-" }}}
+" File type
+function! FileType() abort
+    if len(&filetype) == 0
+        return "text"
+    endif
 
-" NERDTree statusline: " {{{
-" -------------------------------------------------------------------------
+    return tolower(&filetype)
+endfunction
 
-let NERDTreeStatusline="%4*nerdtree%1*"
-
-" }}}
-
-" Vim statusline: " {{{
-" -------------------------------------------------------------------------
+" NERDTree statusline
+let NERDTreeStatusline="%7* nerdtree %1*"
 
 " Always show statusline
 set laststatus=2
 
 " Format active statusline
-function! ActiveStatusLine()
+function! ActiveStatusLine() abort
     " Reset statusline
     let l:statusline=""
 
     " Filename
-    let l:statusline.="%7*%t"
-
-    " Separator
-    let l:statusline.="%1*\ \ "
+    let l:statusline.="%7* %f "
 
     " Show if file is readonly
-    if ReadOnly() != ""
-        let l:statusline.="%4*%{ReadOnly()}"
-        " Separator
-        let l:statusline.="%1*\ \ "
-    endif
+    let l:statusline.="%4*%{ReadOnly()}"
+
+    " Show if file has been modified
+    let l:statusline.="%5*%{Modified()}"
+
+    " ALE lint errors
+    let l:statusline.="%8*%{LinterStatus()}"
+
+    " Show syntax identifier
+    let l:statusline.="%4*%{SyntaxItem()}"
+
+    " Split right
+    let l:statusline.="%1*%="
 
     " Line percentage
     let l:statusline.="%6*%{LinePercent()}"
 
-    " Separator
-    let l:statusline.="%1*\ \ "
-
-    " Show if file has been modified
-    if Modified() != ""
-        " Modified
-        let l:statusline.="%5*%{Modified()}"
-        " Separator
-        let l:statusline.="%1*\ \ "
-    endif
-
-    " ALE lint errors, if any
-    if LinterStatus() != ""
-        " Lint errors
-        let l:statusline.="%8*%{LinterStatus()}"
-        " Separator
-        let l:statusline.="%1*\ \ "
-    endif
-
-    " Show syntax identifier, if any
-    if SyntaxItem() != ""
-        " Syntax identifier
-        let l:statusline.="%4*%{SyntaxItem()}"
-    endif
-
-    " Blank
-    let l:statusline.="%1*"
+    " File type
+    let l:statusline.="%7* %{FileType()} "
 
     " Done
     return l:statusline
 endfunction
 
 " Format inactive statusline
-function! InactiveStatusLine()
+function! InactiveStatusLine() abort
     " Reset statusline
     let l:statusline=""
 
     " Filename
-    let l:statusline.="%8*%t"
+    let l:statusline.="%8* %f "
 
     " Blank
     let l:statusline.="%1*"
@@ -145,7 +107,7 @@ function! InactiveStatusLine()
 endfunction
 
 " Set active statusline
-function! SetActiveStatusLine()
+function! SetActiveStatusLine() abort
     if &ft ==? 'nerdtree'
         return
     endif
@@ -155,7 +117,7 @@ function! SetActiveStatusLine()
 endfunction
 
 " Set inactive statusline
-function! SetInactiveStatusLine()
+function! SetInactiveStatusLine() abort
     if &ft ==? 'nerdtree'
         return
     endif
@@ -170,5 +132,3 @@ augroup statusline
     autocmd WinEnter,BufEnter * call SetActiveStatusLine()
     autocmd WinLeave,BufLeave * call SetInactiveStatusLine()
 augroup end
-
-" }}}
