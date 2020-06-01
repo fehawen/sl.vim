@@ -22,7 +22,7 @@ function! LinterStatus() abort
     if l:counts.total == 0
         return ""
     else
-        return printf("%d err", l:counts.total)
+        return printf("(%d err)", l:counts.total)
     endif
 endfunction
 
@@ -37,6 +37,15 @@ function! ReadOnly()
     else
         return ''
     endif
+endfunction
+
+" }}}
+
+" Line percentage: " {{{
+" -------------------------------------------------------------------------
+
+function! LinePercent()
+    return printf("%d%%", line('.') * 100 / line('$'))
 endfunction
 
 " }}}
@@ -85,8 +94,8 @@ function! ActiveStatusLine()
         let l:statusline.="%1*\ \ "
     endif
 
-    " Current column, line number, total line numbers
-    let l:statusline.="%6*%c:%l/%L"
+    " Line percentage
+    let l:statusline.="%6*%{LinePercent()}"
 
     " Separator
     let l:statusline.="%1*\ \ "
