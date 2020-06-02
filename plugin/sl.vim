@@ -53,7 +53,7 @@ function! FileType() abort
 endfunction
 
 " NERDTree statusline
-let NERDTreeStatusline="%7* nerdtree %1*"
+let NERDTreeStatusline="%1* nerdtree %3*"
 
 " Always show statusline
 set laststatus=2
@@ -64,28 +64,28 @@ function! ActiveStatusLine() abort
     let l:statusline=""
 
     " Filename
-    let l:statusline.="%7* %f "
+    let l:statusline.="%1* %f "
 
     " Show if file is readonly
-    let l:statusline.="%4*%{ReadOnly()}"
+    let l:statusline.="%2*%{ReadOnly()}"
 
     " Show if file has been modified
-    let l:statusline.="%5*%{Modified()}"
+    let l:statusline.="%2*%{Modified()}"
 
     " ALE lint errors
-    let l:statusline.="%8*%{LinterStatus()}"
+    let l:statusline.="%2*%{LinterStatus()}"
 
     " Show syntax identifier
-    let l:statusline.="%4*%{SyntaxItem()}"
+    let l:statusline.="%2*%{SyntaxItem()}"
 
     " Split right
-    let l:statusline.="%1*%="
+    let l:statusline.="%3*%="
 
     " Line percentage
-    let l:statusline.="%6*%{LinePercent()}"
+    let l:statusline.="%2*%{LinePercent()}"
 
     " File type
-    let l:statusline.="%7* %{FileType()} "
+    let l:statusline.="%1* %{FileType()} "
 
     " Done
     return l:statusline
@@ -97,10 +97,10 @@ function! InactiveStatusLine() abort
     let l:statusline=""
 
     " Filename
-    let l:statusline.="%8* %f "
+    let l:statusline.="%1* %f "
 
     " Blank
-    let l:statusline.="%1*"
+    let l:statusline.="%3*"
 
     " Done
     return l:statusline
