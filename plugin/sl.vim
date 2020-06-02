@@ -64,7 +64,7 @@ function! ActiveStatusLine() abort
     let l:statusline=""
 
     " Filename
-    let l:statusline.="%1* %f "
+    let l:statusline.="%1* %t "
 
     " Show if file is readonly
     let l:statusline.="%2*%{ReadOnly()}"
