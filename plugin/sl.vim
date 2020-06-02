@@ -16,7 +16,7 @@ function! LinterStatus() abort
     if l:counts.total == 0
         return ""
     else
-        return printf(" (%d err) ", l:counts.total)
+        return printf(" err[%d] ", l:counts.total)
     endif
 endfunction
 
@@ -31,7 +31,7 @@ endfunction
 
 " Line percentage
 function! LinePercent() abort
-    return printf(" %d%% ", line('.') * 100 / line('$'))
+    return printf("%d%%", line('.') * 100 / line('$'))
 endfunction
 
 " Modified flag check
@@ -53,7 +53,7 @@ function! FileType() abort
 endfunction
 
 " NERDTree statusline
-let NERDTreeStatusline="%1* nerdtree %3*"
+let NERDTreeStatusline="%2* nerdtree %3*"
 
 " Always show statusline
 set laststatus=2
@@ -82,7 +82,7 @@ function! ActiveStatusLine() abort
     let l:statusline.="%3*%="
 
     " Line percentage
-    let l:statusline.="%2*%{LinePercent()}"
+    let l:statusline.="%2* %{LinePercent()} "
 
     " File type
     let l:statusline.="%1* %{FileType()} "
