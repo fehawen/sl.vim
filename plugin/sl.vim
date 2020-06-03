@@ -97,7 +97,7 @@ function! InactiveStatusLine() abort
     let l:statusline=""
 
     " Filename
-    let l:statusline.="%1* %f "
+    let l:statusline.="%1* %t "
 
     " Blank
     let l:statusline.="%3*"
