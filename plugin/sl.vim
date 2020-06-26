@@ -53,7 +53,7 @@ function! FileType() abort
 endfunction
 
 " NERDTree statusline
-let NERDTreeStatusline="%2* nerdtree %3*"
+let NERDTreeStatusline="%2* nerdtree %5*"
 
 " Always show statusline
 set laststatus=2
@@ -79,7 +79,7 @@ function! ActiveStatusLine() abort
     let l:statusline.="%2*%{SyntaxItem()}"
 
     " Split right
-    let l:statusline.="%3*%="
+    let l:statusline.="%5*%="
 
     " Line percentage
     let l:statusline.="%2* %{LinePercent()} "
@@ -97,10 +97,10 @@ function! InactiveStatusLine() abort
     let l:statusline=""
 
     " Filename
-    let l:statusline.="%1* %t "
+    let l:statusline.="%3* %t "
 
     " Blank
-    let l:statusline.="%3*"
+    let l:statusline.="%5*"
 
     " Done
     return l:statusline
