@@ -16,28 +16,23 @@ function! LinterStatus() abort
     if l:counts.total == 0
         return ""
     else
-        return printf(" err[%d] ", l:counts.total)
+        return printf(" %d █ ", l:counts.total)
     endif
 endfunction
 
 " Readonly flag check
 function! ReadOnly() abort
     if &readonly || !&modifiable
-        return " [RO] "
+        return " RO █ "
     else
         return ""
     endif
 endfunction
 
-" Line percentage
-function! LinePercent() abort
-    return printf("%d%%", line('.') * 100 / line('$'))
-endfunction
-
 " Modified flag check
 function! Modified() abort
     if &modified
-        return " [+] "
+        return " + █ "
     else
         return ""
     endif
@@ -81,8 +76,8 @@ function! ActiveStatusLine() abort
     " Split right
     let l:statusline.="%5*%="
 
-    " Line percentage
-    let l:statusline.="%2* %{LinePercent()} "
+    " Line and column
+    let l:statusline.="%2* %l:%c █ %L "
 
     " File type
     let l:statusline.="%1* %{FileType()} "
