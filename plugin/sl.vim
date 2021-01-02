@@ -48,7 +48,7 @@ function! FileType() abort
 endfunction
 
 " NERDTree statusline
-let NERDTreeStatusline="%2* nerdtree %5*"
+let NERDTreeStatusline="%1* nerdtree %5*"
 
 " Always show statusline
 set laststatus=2
