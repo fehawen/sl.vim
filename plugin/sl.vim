@@ -1,10 +1,31 @@
-function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
+function! SyntaxItem() abort
+    let l:syntaxname = synIDattr(synID(line("."), col("."), 1), "name")
 
-    if l:counts.total == 0
-        return ""
+    if l:syntaxname != ""
+        return printf("%s ", l:syntaxname)
     else
-        return printf("[%d] ", l:counts.total)
+        return ""
+    endif
+endfunction
+
+function! PlugLoaded(name)
+    return (
+        \ has_key(g:plugs, a:name) &&
+        \ isdirectory(g:plugs[a:name].dir) &&
+        \ stridx(&rtp, g:plugs[a:name].dir) >= 0)
+endfunction
+
+function! LinterStatus() abort
+    if PlugLoaded('ale')
+        let l:counts = ale#statusline#Count(bufnr(''))
+
+        if l:counts.total == 0
+            return ""
+        else
+            return printf("[%d] ", l:counts.total)
+        endif
+    else
+        return ""
     endif
 endfunction
 
@@ -42,6 +63,7 @@ function! ActiveStatusLine() abort
     let l:statusline.="%1*%{ReadOnly()}"
     let l:statusline.="%1*%{Modified()}"
     let l:statusline.="%1*%{LinterStatus()}"
+    let l:statusline.="%1*%{SyntaxItem()}"
     let l:statusline.="%3*%="
     let l:statusline.="%1*%l:%c/%L "
     let l:statusline.="%1*%{FileType()} "
