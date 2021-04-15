@@ -1,0 +1,11 @@
+sl.vim
+------
+
+A simple statusline for Vim with the bare essentials only.
+
+Install
+-------
+
+Install using `plug`
+
+    Plug 'fehawen/sx.vim'
