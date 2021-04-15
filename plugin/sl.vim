@@ -11,8 +11,7 @@ endfunction
 function! PlugLoaded(name)
     return (
         \ has_key(g:plugs, a:name) &&
-        \ isdirectory(g:plugs[a:name].dir) &&
-        \ stridx(&rtp, g:plugs[a:name].dir) >= 0)
+        \ isdirectory(g:plugs[a:name].dir))
 endfunction
 
 function! LinterStatus() abort
