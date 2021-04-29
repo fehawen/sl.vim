@@ -8,4 +8,4 @@ Install
 
 Install using `plug`
 
-    Plug 'fehawen/sx.vim'
+    Plug 'fehawen/sl.vim'
