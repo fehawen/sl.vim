@@ -62,10 +62,10 @@ function! FileType() abort
     endif
 
     if len(&filetype) == 0
-        return "text"
+        return " text"
     endif
 
-    return tolower(&filetype)
+    return printf(" %s", tolower(&filetype))
 endfunction
 
 let NERDTreeStatusline="%1* nerdtree %3*"
@@ -81,7 +81,7 @@ function! ActiveStatusLine() abort
     let l:statusline.="%{SyntaxItem()}"
     let l:statusline.="%3*%="
     let l:statusline.="%1*%l,%c"
-    let l:statusline.=" %{FileType()}"
+    let l:statusline.="%{FileType()}"
 
     return l:statusline
 endfunction
