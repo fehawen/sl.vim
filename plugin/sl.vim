@@ -14,7 +14,7 @@ function! SyntaxItem() abort
     let l:syntaxname = synIDattr(synID(line("."), col("."), 1), "name")
 
     if l:syntaxname != ""
-        return printf("%s\ ", l:syntaxname)
+        return printf("%s", l:syntaxname)
     else
         return ""
     endif
@@ -62,10 +62,10 @@ function! FileType() abort
     endif
 
     if len(&filetype) == 0
-        return "text\ "
+        return "\ text"
     endif
 
-    return printf("%s\ ", tolower(&filetype))
+    return printf("\ %s", tolower(&filetype))
 endfunction
 
 let NERDTreeStatusline="%1*\ nerdtree\ %3*"
@@ -74,13 +74,13 @@ set laststatus=2
 
 function! ActiveStatusLine() abort
     let l:statusline=""
-    let l:statusline.="%1*\ %t\ "
+    let l:statusline.="%1*%t\ "
     let l:statusline.="%{ReadOnly()}"
     let l:statusline.="%{Modified()}"
     let l:statusline.="%{LinterStatus()}"
     let l:statusline.="%{SyntaxItem()}"
     let l:statusline.="%3*%="
-    let l:statusline.="%1*\ %l,%c\ "
+    let l:statusline.="%1*%l,%c"
     let l:statusline.="%{FileType()}"
 
     return l:statusline
