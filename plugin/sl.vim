@@ -68,7 +68,7 @@ function! FileType() abort
     return printf("\ \ %s", tolower(&filetype))
 endfunction
 
-let NERDTreeStatusline="%1*\ nerdtree\ %3*"
+let NERDTreeStatusline="%1*NERDTree%3*"
 
 set laststatus=2
 
