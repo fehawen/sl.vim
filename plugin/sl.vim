@@ -75,13 +75,13 @@ set laststatus=2
 function! ActiveStatusLine() abort
     let l:statusline=""
     let l:statusline.="%1*\ \"%t\"\ "
-    let l:statusline.="\ line %l of %L col %c\ "
-    let l:statusline.="%3*%=%1*"
     let l:statusline.="%{ReadOnly()}"
     let l:statusline.="%{Modified()}"
     let l:statusline.="%{LinterStatus()}"
+    let l:statusline.="%3*%=%1*"
     let l:statusline.="%{SyntaxItem()}"
     let l:statusline.="%{FileType()}"
+    let l:statusline.="\ %l/%L:%c\ "
 
     return l:statusline
 endfunction
@@ -89,7 +89,8 @@ endfunction
 function! InactiveStatusLine() abort
     let l:statusline=""
     let l:statusline.="%2*\ \"%t\"\ "
-    let l:statusline.="%3*"
+    let l:statusline.="%3*%=%2*"
+    let l:statusline.="\ %l/%L:%c\ "
 
     return l:statusline
 endfunction
