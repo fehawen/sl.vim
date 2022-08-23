@@ -14,7 +14,7 @@ function! SyntaxItem() abort
     let l:syntaxname = synIDattr(synID(line("."), col("."), 1), "name")
 
     if l:syntaxname != ""
-        return printf("\ %s \ ", l:syntaxname)
+        return printf("\ %s\ ", l:syntaxname)
     else
         return ""
     endif
@@ -74,7 +74,7 @@ set laststatus=2
 
 function! ActiveStatusLine() abort
     let l:statusline=""
-    let l:statusline.="%1*\ \"%t\"\ "
+    let l:statusline.="%1*\ %t\ "
     let l:statusline.="%{ReadOnly()}"
     let l:statusline.="%{Modified()}"
     let l:statusline.="%{LinterStatus()}"
@@ -88,7 +88,7 @@ endfunction
 
 function! InactiveStatusLine() abort
     let l:statusline=""
-    let l:statusline.="%2*\ \"%t\"\ "
+    let l:statusline.="%2*\ %t\ "
     let l:statusline.="%3*%=%2*"
     let l:statusline.="\ %l/%L:%c\ "
 
