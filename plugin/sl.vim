@@ -11,10 +11,16 @@ function! SyntaxItem() abort
         return ""
     endif
 
-    let l:syntaxname = synIDattr(synID(line("."), col("."), 1), "name")
+    let l:s = synID(line("."), col("."), 1)
+    let l:attr = synIDattr(l:s, "name")
+    let l:trans = synIDattr(synIDtrans(l:s), "name")
 
-    if l:syntaxname != ""
-        return printf("\ %s\ ", l:syntaxname)
+    if l:attr != ""
+        if l:trans != "" && l:trans != l:attr
+            return printf("\ %s\ ->\ %s\ ", l:attr, l:trans)
+        else
+            return printf("\ %s\ ", l:attr)
+        endif
     else
         return ""
     endif
@@ -27,8 +33,8 @@ function! PlugLoaded(name)
 endfunction
 
 function! LinterStatus() abort
-    if PlugLoaded('ale')
-        let l:counts = ale#statusline#Count(bufnr(''))
+    if PlugLoaded("ale")
+        let l:counts = ale#statusline#Count(bufnr(""))
 
         if l:counts.total == 0
             return ""
@@ -96,7 +102,7 @@ function! InactiveStatusLine() abort
 endfunction
 
 function! SetActiveStatusLine() abort
-    if &ft ==? 'nerdtree'
+    if &ft ==? "nerdtree"
         return
     endif
 
@@ -105,7 +111,7 @@ function! SetActiveStatusLine() abort
 endfunction
 
 function! SetInactiveStatusLine() abort
-    if &ft ==? 'nerdtree'
+    if &ft ==? "nerdtree"
         return
     endif
 
