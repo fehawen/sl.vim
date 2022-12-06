@@ -17,9 +17,9 @@ function! SyntaxItem() abort
 
     if l:attr != ""
         if l:trans != "" && l:trans != l:attr
-            return printf("\ %s\ ->\ %s\ ", l:attr, l:trans)
+            return printf("%s->%s ", l:attr, l:trans)
         else
-            return printf("\ %s\ ", l:attr)
+            return printf("%s ", l:attr)
         endif
     else
         return ""
@@ -39,7 +39,7 @@ function! LinterStatus() abort
         if l:counts.total == 0
             return ""
         else
-            return printf("\ [%d]\ ", l:counts.total)
+            return printf("(%d) ", l:counts.total)
         endif
     else
         return ""
@@ -48,7 +48,7 @@ endfunction
 
 function! ReadOnly() abort
     if &readonly || !&modifiable
-        return "\ [RO]\ "
+        return "(RO) "
     else
         return ""
     endif
@@ -56,7 +56,7 @@ endfunction
 
 function! Modified() abort
     if &modified
-        return "\ [+]\ "
+        return "(+) "
     else
         return ""
     endif
@@ -68,35 +68,35 @@ function! FileType() abort
     endif
 
     if len(&filetype) == 0
-        return "\ text\ "
+        return " text"
     endif
 
-    return printf("\ %s\ ", tolower(&filetype))
+    return printf(" %s", tolower(&filetype))
 endfunction
 
-let NERDTreeStatusline="%1*\ NERDTree\ %3*"
+let NERDTreeStatusline="%1* NERDTree %3*"
 
 set laststatus=2
 
 function! ActiveStatusLine() abort
     let l:statusline=""
-    let l:statusline.="%1*\ %t\ "
+    let l:statusline.="%1* %t "
     let l:statusline.="%{ReadOnly()}"
     let l:statusline.="%{Modified()}"
     let l:statusline.="%{LinterStatus()}"
     let l:statusline.="%3*%=%1*"
     let l:statusline.="%{SyntaxItem()}"
     let l:statusline.="%{FileType()}"
-    let l:statusline.="\ %l/%L:%c\ "
+    let l:statusline.=" %l/%L:%c "
 
     return l:statusline
 endfunction
 
 function! InactiveStatusLine() abort
     let l:statusline=""
-    let l:statusline.="%2*\ %t\ "
+    let l:statusline.="%2* %t "
     let l:statusline.="%3*%=%2*"
-    let l:statusline.="\ %l/%L:%c\ "
+    let l:statusline.=" %l/%L:%c "
 
     return l:statusline
 endfunction
