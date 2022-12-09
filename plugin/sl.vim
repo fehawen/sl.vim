@@ -80,23 +80,23 @@ set laststatus=2
 
 function! ActiveStatusLine() abort
     let l:statusline=""
-    let l:statusline.="%1* %t "
-    let l:statusline.="%{ReadOnly()}"
-    let l:statusline.="%{Modified()}"
-    let l:statusline.="%{LinterStatus()}"
-    let l:statusline.="%3*%=%1*"
-    let l:statusline.="%{SyntaxItem()}"
-    let l:statusline.="%{FileType()}"
-    let l:statusline.=" %l/%L:%c "
+    let l:statusline.="%7* %t "
+    let l:statusline.="%3*%{ReadOnly()}"
+    let l:statusline.="%2*%{Modified()}"
+    let l:statusline.="%1*%{LinterStatus()}"
+    let l:statusline.="%9*%="
+    let l:statusline.="%4*%{SyntaxItem()}"
+    let l:statusline.="%7*%{FileType()}"
+    let l:statusline.=" %l/%L "
 
     return l:statusline
 endfunction
 
 function! InactiveStatusLine() abort
     let l:statusline=""
-    let l:statusline.="%2* %t "
-    let l:statusline.="%3*%=%2*"
-    let l:statusline.=" %l/%L:%c "
+    let l:statusline.="%8* %t "
+    let l:statusline.="%9*%="
+    let l:statusline.="%8* %l/%L "
 
     return l:statusline
 endfunction
