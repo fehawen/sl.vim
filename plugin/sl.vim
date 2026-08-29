@@ -87,7 +87,7 @@ function! ActiveStatusLine() abort
     let l:statusline.="%9*%="
     let l:statusline.="%4*%{SyntaxItem()}"
     let l:statusline.="%7*%{FileType()}"
-    let l:statusline.=" %l/%L "
+    let l:statusline.=" %l:%c/%L "
 
     return l:statusline
 endfunction
@@ -96,7 +96,7 @@ function! InactiveStatusLine() abort
     let l:statusline=""
     let l:statusline.="%8* %t "
     let l:statusline.="%9*%="
-    let l:statusline.="%8* %l/%L "
+    let l:statusline.="%8* %l:%c/%L "
 
     return l:statusline
 endfunction
